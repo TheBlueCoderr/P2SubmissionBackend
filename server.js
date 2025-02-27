@@ -16,8 +16,8 @@ const PORT = 5000;
 
 mongoose
   .connect(MONGO_URI)
-  .then(() => console.log("✅ MongoDB Connected (Local)"))
-  .catch((err) => console.error("❌ MongoDB Connection Error:", err));
+  .then(() => console.log(" MongoDB Connected (Local)"))
+  .catch((err) => console.error(" MongoDB Connection Error:", err));
 
 // User Schema
 const UserSchema = new mongoose.Schema({
@@ -41,7 +41,7 @@ const AuctionItemSchema = new mongoose.Schema({
 
 const AuctionItem = mongoose.model("AuctionItem", AuctionItemSchema);
 
-// **User Signup (Encrypt Password)**
+// Encrypt Password
 app.post("/signup", async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -54,7 +54,7 @@ app.post("/signup", async (req, res) => {
   }
 });
 
-// **User Signin (Check Encrypted Password)**
+// Check Encrypted Password
 app.post("/signin", async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -70,7 +70,7 @@ app.post("/signin", async (req, res) => {
   }
 });
 
-// **Create Auction**
+// Create Auction
 app.post("/auction", async (req, res) => {
   try {
     const { name, description, startingBid, endTime } = req.body;
@@ -82,7 +82,7 @@ app.post("/auction", async (req, res) => {
   }
 });
 
-// **Place a Bid**
+// Place a Bid
 app.post("/bid/:id", async (req, res) => {
   try {
     const { bidAmount, bidderName } = req.body;
@@ -110,7 +110,7 @@ app.post("/bid/:id", async (req, res) => {
   }
 });
 
-// **Get All Auctions**
+// Get All Auctions
 app.get("/auctions", async (req, res) => {
   try {
     const auctions = await AuctionItem.find();
@@ -120,7 +120,6 @@ app.get("/auctions", async (req, res) => {
   }
 });
 
-// **Get Single Auction**
 app.get("/auctions/:id", async (req, res) => {
   try {
     const auction = await AuctionItem.findById(req.params.id);
@@ -131,7 +130,7 @@ app.get("/auctions/:id", async (req, res) => {
   }
 });
 
-// **Edit Auction**
+//Edit Auction
 app.put("/auction/:id", async (req, res) => {
   try {
     const { name, description, startingBid, endTime } = req.body;
@@ -147,7 +146,7 @@ app.put("/auction/:id", async (req, res) => {
   }
 });
 
-// **Delete Auction**
+// Delete Auction
 app.delete("/auction/:id", async (req, res) => {
   try {
     const auction = await AuctionItem.findByIdAndDelete(req.params.id);
@@ -158,5 +157,5 @@ app.delete("/auction/:id", async (req, res) => {
   }
 });
 
-// **Start Server**
+
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
